@@ -1,0 +1,154 @@
+:root {
+    --bg: #000000;
+    --line: #000000;
+    --white: #f6f7fb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--white);
+}
+
+body {
+    display: grid;
+    place-items: center;
+    font-family: system-ui, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -80px;
+    background-image: url('../bg/FilmGrain.png');
+    background-size: 2048px 2048px;
+    opacity: .15;
+    mix-blend-mode: screen;
+    filter: contrast(1.5) brightness(10);
+    animation: grainShift 0.8s steps(1) infinite;
+    pointer-events: none;
+    z-index: 100;
+}
+
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1%, -2%); }
+    20% { transform: translate(2%, 1%); }
+    30% { transform: translate(-2%, 2%); }
+    40% { transform: translate(1%, -1%); }
+    50% { transform: translate(-1%, 2%); }
+    60% { transform: translate(-2%, -1%); }
+    70% { transform: translate(2%, 1%); }
+    80% { transform: translate(1%, -2%); }
+    90% { transform: translate(-1%, 1%); }
+}
+
+.wrap {
+    width: 92vw;
+    height: 85vh;
+    display: grid;
+    grid-auto-rows: 1fr;
+    z-index: 1;
+    gap: min(2vmin, 16px);
+}
+
+.eye {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.title-cell {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+    text-transform: uppercase;
+    gap: clamp(0.15rem, 0.8vw, 0.5rem);
+    letter-spacing: 0.08em;
+    container-type: inline-size;
+}
+
+.title-word {
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    white-space: nowrap;
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+    font-size: 30cqw;
+}
+
+
+.eye.linked {
+    cursor: pointer;
+    position: relative;
+    outline: none;
+}
+
+.eye.linked svg .pupil {
+    fill: #cc1e1e;
+    transition: fill .2s ease;
+}
+
+.eye.linked.armed svg .pupil {
+    fill: #ff2e2e;
+}
+
+.eye.linked:hover svg .pupil,
+.eye.linked:focus-visible svg .pupil {
+    fill: #ff2e2e;
+}
+
+.eye.linked svg .logo {
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.eye.linked.armed svg .logo {
+    opacity: 1;
+}
+
+.eye.linked:hover svg .logo,
+.eye.linked:focus-visible svg .logo {
+    opacity: 1;
+}
+
+.eye svg .lid-top,
+.eye svg .lid-bottom {
+    transform: scaleY(0);
+    transform-box: fill-box;
+    transition: transform .12s ease-in;
+    pointer-events: none;
+}
+
+.eye svg .lid-top {
+    transform-origin: top center;
+}
+
+.eye svg .lid-bottom {
+    transform-origin: bottom center;
+}
+
+.eye.blinking svg .lid-top,
+.eye.blinking svg .lid-bottom {
+    transform: scaleY(1);
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
