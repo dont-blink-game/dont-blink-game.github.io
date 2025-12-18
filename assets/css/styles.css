@@ -152,3 +152,78 @@ svg {
     overflow: visible;
 }
 
+/* Text/Legal pages (e.g. /privacy) */
+body.page-body {
+    display: block;
+    place-items: unset;
+    overflow: auto;
+}
+
+.page {
+    width: min(900px, 92vw);
+    margin: 0 auto;
+    padding: clamp(18px, 4vw, 36px) 0;
+}
+
+.page-header {
+    margin-bottom: 22px;
+}
+
+.page-title {
+    margin: 0 0 8px 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.page-subtitle,
+.page-meta {
+    margin: 0;
+    opacity: 0.85;
+}
+
+.page-section {
+    margin: 18px 0;
+}
+
+.page h2 {
+    margin: 0 0 8px 0;
+}
+
+.page p,
+.page li {
+    line-height: 1.6;
+}
+
+.page a {
+    color: var(--white);
+    text-underline-offset: 3px;
+}
+
+.page a:hover,
+.page a:focus-visible {
+    text-decoration-thickness: 2px;
+}
+
+.page-footer {
+    margin-top: 26px;
+    opacity: 0.9;
+}
+
+/* Small fixed link for the main game page */
+.corner-link {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 150;
+    font-size: 14px;
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+.corner-link:hover,
+.corner-link:focus-visible {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
