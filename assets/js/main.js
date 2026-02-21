@@ -223,18 +223,19 @@
             
             // Calculate gap based on CSS: min(2vmin, 16px)
             const vmin = Math.min(window.innerWidth, window.innerHeight) / 100;
-            const gap = Math.min(2 * vmin, 16);
+            const colGap = Math.min(2 * vmin, 16);
+            const rowGap = 0; // We set row-gap to 0 in CSS for mobile
             
             // Calculate column width accounting for the gap
-            const colWidth = (w - gap) / cols;
+            const colWidth = (w - colGap) / cols;
             
             // The eye SVG has a viewBox of 140x90, so the aspect ratio is 140/90
             const rowHeight = colWidth * (90 / 140);
             
             // Calculate how many rows fit, accounting for gaps between rows
-            // h = rows * rowHeight + (rows - 1) * gap
-            // h + gap = rows * (rowHeight + gap)
-            const rows = Math.max(2, Math.floor((h + gap) / (rowHeight + gap)));
+            // h = rows * rowHeight + (rows - 1) * rowGap
+            // h + rowGap = rows * (rowHeight + rowGap)
+            const rows = Math.max(2, Math.floor((h + rowGap) / (rowHeight + rowGap)));
             
             TOTAL_EYES = rows * cols;
             return { rows, cols };
