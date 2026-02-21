@@ -121,7 +121,8 @@ body::before {
 }
 
 .eye.linked:hover svg .logo,
-.eye.linked:focus-visible svg .logo {
+.eye.linked:focus-visible svg .logo,
+.eye.linked.touch-hover svg .logo {
     opacity: 1;
 }
 

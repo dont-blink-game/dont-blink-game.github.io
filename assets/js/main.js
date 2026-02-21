@@ -18,6 +18,8 @@
         travelMultiplier: .5
     };
 
+
+
     let uid = 0;
     function makeEye() {
         const boxW = 140;
@@ -102,6 +104,7 @@
         const cell = document.createElement('div');
         cell.className = 'eye';
         cell.appendChild(svg);
+        svg._state.cell = cell;
         return cell;
     }
 
@@ -561,6 +564,7 @@
         const pointerInside = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
 
         if (pointerInside) {
+            if (st.cell) st.cell.classList.add('touch-hover');
             const nx = (mouseX - rect.left) / rect.width - 0.5;
             const ny = (mouseY - rect.top) / rect.height - 0.5;
             const maxX = st.baseTravelMax * 1.15;
@@ -570,6 +574,7 @@
             st.targetX = st.cx + offsetX;
             st.targetY = st.cy + offsetY;
         } else {
+            if (st.cell) st.cell.classList.remove('touch-hover');
             const angle = Math.atan2(dy, dx);
             const dist = Math.hypot(dx, dy);
             const eyeRadiusScreen = Math.max(rect.width, rect.height) * 0.8;
