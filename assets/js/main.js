@@ -1,6 +1,6 @@
 (() => {
     const grid = document.getElementById('eyes');
-    const TOTAL_EYES = 20;
+    let TOTAL_EYES = 20;
     const GRID_LIMITS = { minCols: 2, maxCols: 8, minRows: 2, maxRows: 8 };
     const gridShape = { rows: 0, cols: 0 };
     const specialLinks = [
@@ -205,11 +205,40 @@
     }
 
     function computeGridShape() {
+        const isMobile = typeof window.mobileCheck === 'function' && window.mobileCheck();
+        if (isMobile) {
+            const cols = 2;
+            const gridRect = grid.getBoundingClientRect();
+            // If gridRect is 0 (e.g. before layout), fallback to window dimensions
+            const w = gridRect.width || (window.innerWidth * 0.92);
+            const h = gridRect.height || (window.innerHeight * 0.85);
+            
+            // Calculate gap based on CSS: min(2vmin, 16px)
+            const vmin = Math.min(window.innerWidth, window.innerHeight) / 100;
+            const gap = Math.min(2 * vmin, 16);
+            
+            // Calculate column width accounting for the gap
+            const colWidth = (w - gap) / cols;
+            
+            // The eye SVG has a viewBox of 140x90, so the aspect ratio is 140/90
+            const rowHeight = colWidth * (90 / 140);
+            
+            // Calculate how many rows fit, accounting for gaps between rows
+            // h = rows * rowHeight + (rows - 1) * gap
+            // h + gap = rows * (rowHeight + gap)
+            const rows = Math.max(2, Math.floor((h + gap) / (rowHeight + gap)));
+            
+            TOTAL_EYES = rows * cols;
+            return { rows, cols };
+        }
+
+        TOTAL_EYES = 20;
         const ratio = window.innerWidth && window.innerHeight ? window.innerWidth / window.innerHeight : 1;
         const idealCols = Math.round(Math.sqrt(TOTAL_EYES * ratio));
         const cols = Math.max(GRID_LIMITS.minCols, Math.min(GRID_LIMITS.maxCols, idealCols));
         const neededRows = Math.ceil(TOTAL_EYES / cols);
         const rows = Math.max(GRID_LIMITS.minRows, Math.min(GRID_LIMITS.maxRows, neededRows));
+        TOTAL_EYES = rows * cols; // Update TOTAL_EYES to match actual grid size
         return { rows, cols };
     }
 
@@ -418,7 +447,7 @@
 
         const clickHandler = (event) => {
             if (requiresArm) {
-                if (!cell.classList.contains('armed')) {
+                if (!cell.classList.contains('armed') && !cell.classList.contains('touch-hover')) {
                     event.preventDefault();
                     cell.classList.add('armed');
                     if (typeof cell.focus === 'function') {
