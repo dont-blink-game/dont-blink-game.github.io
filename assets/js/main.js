@@ -11,7 +11,7 @@
     const gridShape = { rows: 0, cols: 0 };
     const specialLinks = [
         { type: 'discord', url: 'https://discord.gg/sak9PMyA42', aria: "Opent de Discord-community van DON'T BLINK." },
-        { type: 'youtube', url: 'https://youtu.be/dontblinktrailer', aria: "Bekijk de YouTube-trailer van DON'T BLINK." },
+        // { type: 'youtube', url: 'https://youtu.be/dontblinktrailer', aria: "Bekijk de YouTube-trailer van DON'T BLINK." },
         { type: 'playstore', url: 'https://play.google.com/store/apps/details?id=com.studioscale.dontblink', aria: "Download DON'T BLINK in de Google Play Store." },
         { type: 'tiktok', url: 'https://www.tiktok.com/@dont_blink_game', aria: "Bekijk DON'T BLINK op TikTok." }
     ];
