@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -6,7 +6,7 @@
     <title>Privacy Policy | DON'T BLINK</title>
     <meta
       name="description"
-      content="Privacy policy for the DON'T BLINK Android game by Studio Scale, including camera (blink detection) usage."
+      content="Privacy policy for the DON'T BLINK game by Collateral Damage for iOS and Android, including camera and TrueDepth API (blink detection) usage."
     />
     <link rel="stylesheet" href="../assets/css/styles.css" />
   </head>
@@ -15,43 +15,85 @@
     <main class="page" aria-label="Privacy policy">
       <header class="page-header">
         <h1 class="page-title">Privacy Policy</h1>
-        <p class="page-subtitle">DON'T BLINK (Studio Scale)</p>
-        <p class="page-meta">Last updated: December 18, 2025</p>
+        <p class="page-subtitle">DON'T BLINK (Collateral Damage)</p>
+        <p class="page-meta">Last updated: March 20, 2026</p>
       </header>
 
       <section class="page-section">
         <h2>Summary</h2>
         <p>
-          DON'T BLINK is an Android game developed by Studio Scale. This privacy
-          policy explains how the app uses your device camera for blink
-          detection and what information the app does (and does not) collect.
+          DON'T BLINK is a game developed by Collateral Damage for iOS and
+          Android. This privacy policy explains how the app uses your device
+          camera and TrueDepth API for blink detection and what information the
+          app does (and does not) collect.
         </p>
       </section>
 
       <section class="page-section">
-        <h2>Camera access and use</h2>
+        <h2>Face Data and Camera Access</h2>
+        <p>
+          Our game relies on detecting when you blink as its core gameplay
+          mechanic. To achieve this, the app requires access to your device's
+          camera and facial tracking capabilities. Depending on your platform,
+          we use different technologies:
+        </p>
+
+        <h3>iOS (Apple Devices) - TrueDepth API</h3>
         <ul>
           <li>
-            <strong>Why we request camera permission:</strong> to detect
-            blinking so the blinking version of the game can function.
+            <strong>What information is collected?</strong> We use Apple's ARKit
+            and the TrueDepth API to detect the position and state of your eyes
+            (specifically, whether your eyes are open or closed). We do not
+            collect, store, or map any other facial features.
           </li>
           <li>
-            <strong>Required for gameplay:</strong> the blinking version
-            requires camera access to play (and is highly recommended).
+            <strong>For what purposes is this information collected?</strong>
+            The face data is used exclusively in real-time for the core gameplay
+            mechanic: detecting when the player blinks to advance or interact
+            with the game.
           </li>
           <li>
-            <strong>Local processing:</strong> blink detection is processed
-            on-device in the app using Google ML Kit (on-device models).
+            <strong>Is the data shared with third parties?</strong> No. Face
+            data is never shared with any third parties.
           </li>
           <li>
-            <strong>No video upload:</strong> we do not transmit your camera
-            stream or frames to our servers for storage or analysis.
+            <strong>Where is this information stored?</strong> The face data is
+            processed locally on your device in real-time. It is
+            <strong>never stored</strong> on the device, and it is
+            <strong>never transmitted</strong> to our servers or any remote
+            location. The data exists only in memory for the fraction of a
+            second needed to detect a blink and is immediately discarded.
           </li>
         </ul>
+
+        <h3>Android Devices - Google ML Kit</h3>
+        <ul>
+          <li>
+            <strong>What information is collected?</strong> We use Google ML
+            Kit's face detection to monitor the open/closed probability of your
+            eyes.
+          </li>
+          <li>
+            <strong>For what purposes is this information collected?</strong>
+            The data is used strictly in real-time to detect player blinks as
+            the primary gameplay mechanic.
+          </li>
+          <li>
+            <strong>Is the data shared with third parties?</strong> No. We do
+            not transmit your camera stream or face data to Google or any other
+            third party.
+          </li>
+          <li>
+            <strong>Where is this information stored?</strong> Processing
+            happens entirely on-device. No face data or video streams are saved
+            to the device or transmitted to our servers.
+          </li>
+        </ul>
+
         <p>
-          Android controls camera permission. You can deny or revoke camera
-          access at any time in your device settings. If you do, the blinking
-          version will not work.
+          You can deny or revoke camera access at any time in your device
+          settings. However, without this permission, the core blinking version
+          of the game cannot function.
         </p>
       </section>
 
@@ -60,7 +102,7 @@
         <p>
           The app may store game progress and settings locally on your device
           (in app storage). This information is used to make the game work as
-          expected and is not sent to Studio Scale.
+          expected and is not sent to Collateral Damage.
         </p>
       </section>
 
@@ -111,8 +153,8 @@
       <section class="page-section">
         <h2>Contact</h2>
         <p>
-          If you have questions about this privacy policy, contact Studio Scale
-          at
+          If you have questions about this privacy policy, contact Collateral
+          Damage at
           <a href="mailto:studioscalegames@gmail.com"
             >studioscalegames@gmail.com</a
           >.
@@ -120,7 +162,7 @@
       </section>
 
       <footer class="page-footer">
-        <a href="/">Back to home</a>
+        <a href="../index.html">Back to home</a>
       </footer>
     </main>
   </body>
