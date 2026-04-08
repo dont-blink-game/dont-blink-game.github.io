@@ -111,6 +111,13 @@
 
         const cell = document.createElement('div');
         cell.className = 'eye';
+        
+        // Add random slight translation to make it feel less like a perfect grid
+        // Keeps offset between -20px and +20px so they don't break out of their grid cells and overlap
+        const rx = (Math.random() - 0.5) * 30;
+        const ry = (Math.random() - 0.5) * 30;
+        cell.style.transform = `translate(${rx}px, ${ry}px)`;
+
         cell.appendChild(svg);
         svg._state.cell = cell;
         return cell;
@@ -576,14 +583,6 @@
         }
 
         eyes = Array.from(grid.querySelectorAll('.eye'));
-        const titleSelection = chooseTitleIndices(rows, cols, eyes.length);
-        if (titleSelection) {
-            const { dontIndex, blinkIndex } = titleSelection;
-            if (eyes[dontIndex]) convertEyeToTitle(eyes[dontIndex], "DON'T", 'dont');
-            if (eyes[blinkIndex]) convertEyeToTitle(eyes[blinkIndex], 'BLINK', 'blink');
-        }
-
-        assignSpecialEyes();
     }
 
     let mouseX = innerWidth / 2;

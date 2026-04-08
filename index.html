@@ -7,7 +7,7 @@
 
       if (forcePlayStore) {
         window.location.href =
-          "https://play.google.com/store/apps/details?id=com.studioscale.dontblink";
+          "https://play.google.com/store/apps/details?id=com.collateraldamage.dontblink";
       }
     </script>
     <meta charset="utf-8" />
@@ -17,10 +17,150 @@
   </head>
 
   <body>
-    <div class="wrap" id="eyes"></div>
-    <a class="corner-link" href="/privacy" aria-label="View the privacy policy"
-      >Privacy</a
-    >
+    <!-- HERO SECTION -->
+    <header class="hero">
+      <video class="hero-video" autoplay loop muted playsinline>
+        <source src="assets/video/trailer.webm" type="video/webm" />
+        <source src="assets/video/trailer-fallback.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-content">
+        <img
+          src="assets/images/logo.webp"
+          alt="DON'T BLINK"
+          class="hero-logo"
+        />
+        <h1 class="hero-title">PLAY BETA NOW</h1>
+        <div class="hero-buttons">
+          <a
+            href="#"
+            class="btn download-btn apple-btn"
+            aria-label="Download on App Store"
+          >
+            <img src="assets/images/app-store.png" alt="App Store" />
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.collateraldamage.dontblink"
+            class="btn download-btn play-btn"
+            aria-label="Get it on Google Play"
+          >
+            <img src="assets/images/google-play.png" alt="Google Play" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT WITH EYES BACKGROUND -->
+    <main class="content-sections">
+      <div class="eyes-bg-container">
+        <div class="wrap" id="eyes"></div>
+      </div>
+
+      <div class="sections-container">
+        <!-- Trailer Section -->
+        <section class="trailer-section">
+          <h2 class="trailer-title">Watch the Trailer</h2>
+          <div class="video-container">
+            <iframe
+              class="trailer-video"
+              style="
+                aspect-ratio: 16 / 9;
+                border: none;
+                width: 100%;
+                height: auto;
+              "
+              src="https://www.youtube.com/embed/7WnvfwlN5Ho"
+              title="Watch the Trailer"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        </section>
+
+        <!-- Discord Section -->
+        <section class="community-section">
+          <h2 class="tagline">Join the Community</h2>
+          <p class="description">
+            Connect with the deveplopers and other players on our official
+            Discord server to keep up with the latest news and share your
+            experiences!
+          </p>
+          <a
+            href="https://discord.gg/sak9PMyA42"
+            class="discord-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="assets/icons/discord.svg" alt="Discord" />
+            JOIN DISCORD
+          </a>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>COLLATERAL DAMAGE</h3>
+          <p>An indie game studio creating psychological horror experiences.</p>
+          <p>&copy; 2026 Collateral Damage. All rights reserved.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="/privacy" class="footer-link">Privacy Policy</a>
+          <a href="mailto:contact@collateraldamage.com" class="footer-link"
+            >Contact Us</a
+          >
+        </div>
+
+        <div class="footer-socials">
+          <a
+            href="https://discord.gg/sak9PMyA42"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Discord"
+          >
+            <img
+              src="assets/icons/discord.svg"
+              alt="Discord"
+              class="social-icon"
+            />
+          </a>
+          <a
+            href="https://www.tiktok.com/@dont_blink_game"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <img
+              src="assets/icons/tiktok.svg"
+              alt="TikTok"
+              class="social-icon"
+            />
+          </a>
+          <a
+            href="https://www.youtube.com/@StudioScaleGames"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+          >
+            <img
+              src="assets/icons/youtube.svg"
+              alt="YouTube"
+              class="social-icon"
+            />
+          </a>
+        </div>
+      </div>
+    </footer>
+
     <script src="assets/js/main.js" defer></script>
   </body>
 </html>
