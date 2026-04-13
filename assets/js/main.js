@@ -695,6 +695,21 @@
     window.addEventListener('touchstart', handleUserActivity);
     window.addEventListener('keydown', handleUserActivity);
 
+    // Pause hero video when out of viewport
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    heroVideo.play().catch(() => {});
+                } else {
+                    heroVideo.pause();
+                }
+            });
+        }, { threshold: 0 });
+        observer.observe(heroVideo);
+    }
+
     rebuildEyes(true);
     updateRects();
     requestAnimationFrame(tick);
