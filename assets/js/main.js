@@ -590,9 +590,20 @@
     const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
     const lerp = (a, b, t) => a + (b - a) * t;
 
+    let cachedSvgs = null;
+    function updateRects() {
+        cachedSvgs = grid.querySelectorAll('svg');
+        for (let i = 0; i < cachedSvgs.length; i++) {
+            const svg = cachedSvgs[i];
+            if (svg._state) {
+                svg._state.rect = svg.getBoundingClientRect();
+            }
+        }
+    }
+
     function computeTargets(svg) {
         const st = svg._state;
-        const rect = svg.getBoundingClientRect();
+        const rect = st.rect || svg.getBoundingClientRect();
         const cxScreen = rect.left + rect.width * (st.cx / svg.viewBox.baseVal.width);
         const cyScreen = rect.top + rect.height * (st.cy / svg.viewBox.baseVal.height);
 
@@ -638,18 +649,20 @@
     }
 
     function tick(now) {
-        const svgs = grid.querySelectorAll('svg');
         const timestamp = typeof now === 'number' ? now : performance.now();
-        svgs.forEach(svg => {
-            const st = svg._state;
-            if (!st) return;
-            if (st.isRogue) updateRogueTargets(svg, timestamp);
-            else computeTargets(svg);
-            st.curX = lerp(st.curX, st.targetX, st.lerpAlpha);
-            st.curY = lerp(st.curY, st.targetY, st.lerpAlpha);
-            st.pupil.setAttribute('cx', st.curX.toFixed(2));
-            st.pupil.setAttribute('cy', st.curY.toFixed(2));
-        });
+        if (cachedSvgs) {
+            for (let i = 0; i < cachedSvgs.length; i++) {
+                const svg = cachedSvgs[i];
+                const st = svg._state;
+                if (!st) continue;
+                if (st.isRogue) updateRogueTargets(svg, timestamp);
+                else computeTargets(svg);
+                st.curX = lerp(st.curX, st.targetX, st.lerpAlpha);
+                st.curY = lerp(st.curY, st.targetY, st.lerpAlpha);
+                st.pupil.setAttribute('cx', st.curX.toFixed(2));
+                st.pupil.setAttribute('cy', st.curY.toFixed(2));
+            }
+        }
         requestAnimationFrame(tick);
     }
 
@@ -670,14 +683,20 @@
 
     window.addEventListener('resize', () => {
         rebuildEyes();
+        updateRects();
         handleUserActivity();
     });
+
+    window.addEventListener('scroll', () => {
+        updateRects();
+    }, { passive: true });
 
     window.addEventListener('mousedown', handleUserActivity);
     window.addEventListener('touchstart', handleUserActivity);
     window.addEventListener('keydown', handleUserActivity);
 
     rebuildEyes(true);
+    updateRects();
     requestAnimationFrame(tick);
     scheduleIdleTimer();
 })();

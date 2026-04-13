@@ -37,26 +37,27 @@ body::before {
     position: fixed;
     inset: -80px;
     background-image: url('../bg/FilmGrain.png');
-    background-size: 2048px 2048px;
+    background-size: 1024px 1024px;
     opacity: .15;
     mix-blend-mode: screen;
     filter: contrast(1.5) brightness(10);
     animation: grainShift 0.8s steps(1) infinite;
     pointer-events: none;
     z-index: 9999;
+    will-change: transform;
 }
 
 @keyframes grainShift {
-    0%, 100% { transform: translate(0, 0); }
-    10% { transform: translate(-1%, -2%); }
-    20% { transform: translate(2%, 1%); }
-    30% { transform: translate(-2%, 2%); }
-    40% { transform: translate(1%, -1%); }
-    50% { transform: translate(-1%, 2%); }
-    60% { transform: translate(-2%, -1%); }
-    70% { transform: translate(2%, 1%); }
-    80% { transform: translate(1%, -2%); }
-    90% { transform: translate(-1%, 1%); }
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    10% { transform: translate3d(-1%, -2%, 0); }
+    20% { transform: translate3d(2%, 1%, 0); }
+    30% { transform: translate3d(-2%, 2%, 0); }
+    40% { transform: translate3d(1%, -1%, 0); }
+    50% { transform: translate3d(-1%, 2%, 0); }
+    60% { transform: translate3d(-2%, -1%, 0); }
+    70% { transform: translate3d(2%, 1%, 0); }
+    80% { transform: translate3d(1%, -2%, 0); }
+    90% { transform: translate3d(-1%, 1%, 0); }
 }
 
 /* HERO SECTION */
@@ -148,6 +149,7 @@ body::before {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    will-change: transform;
 }
 
 .eyes-bg-container::after {
