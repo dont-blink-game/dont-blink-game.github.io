@@ -34,7 +34,7 @@ body::before {
     content: "";
     position: fixed;
     inset: -80px;
-    background-image: url('../bg/FilmGrain.png');
+    background-image: url('../bg/FilmGrain.webp');
     background-size: 1024px 1024px;
     opacity: .15;
     mix-blend-mode: screen;

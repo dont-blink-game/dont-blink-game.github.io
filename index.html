@@ -15,11 +15,34 @@
     <title>DON'T BLINK</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Defer Google Fonts -->
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap"
+    /></noscript>
+
+    <!-- Defer Main CSS -->
+    <link
+      rel="preload"
+      href="assets/css/styles.css"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript><link rel="stylesheet" href="assets/css/styles.css" /></noscript>
     <link
       rel="canonical"
       href="https://dont-blink.collateral-damage-games.com/"
@@ -68,7 +91,7 @@
       </video>
       <div class="hero-content">
         <img
-          src="assets/images/logo.webp"
+          src="assets/images/logo-small.webp"
           alt="DON'T BLINK"
           class="hero-logo"
           fetchpriority="high"
@@ -80,14 +103,14 @@
             class="btn download-btn apple-btn"
             aria-label="Download on App Store"
           >
-            <img src="assets/images/app-store.png" alt="App Store" />
+            <img src="assets/images/app-store.webp" alt="App Store" />
           </a>
           <a
             href="https://play.google.com/store/apps/details?id=com.studioscale.dontblink"
             class="btn download-btn play-btn"
             aria-label="Get it on Google Play"
           >
-            <img src="assets/images/google-play.png" alt="Google Play" />
+            <img src="assets/images/google-play.webp" alt="Google Play" />
           </a>
         </div>
       </div>
