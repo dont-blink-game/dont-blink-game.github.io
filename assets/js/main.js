@@ -597,6 +597,8 @@
             const svg = cachedSvgs[i];
             if (svg._state) {
                 svg._state.rect = svg.getBoundingClientRect();
+                svg._state.viewBoxWidth = svg.viewBox.baseVal.width;
+                svg._state.viewBoxHeight = svg.viewBox.baseVal.height;
             }
         }
     }
@@ -604,15 +606,20 @@
     function computeTargets(svg) {
         const st = svg._state;
         const rect = st.rect || svg.getBoundingClientRect();
-        const cxScreen = rect.left + rect.width * (st.cx / svg.viewBox.baseVal.width);
-        const cyScreen = rect.top + rect.height * (st.cy / svg.viewBox.baseVal.height);
+        const vW = st.viewBoxWidth || svg.viewBox.baseVal.width;
+        const vH = st.viewBoxHeight || svg.viewBox.baseVal.height;
+        const cxScreen = rect.left + rect.width * (st.cx / vW);
+        const cyScreen = rect.top + rect.height * (st.cy / vH);
 
         const dx = mouseX - cxScreen;
         const dy = mouseY - cyScreen;
         const pointerInside = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
 
         if (pointerInside) {
-            if (st.cell) st.cell.classList.add('touch-hover');
+            if (st.cell && !st.isHovered) {
+                st.cell.classList.add('touch-hover');
+                st.isHovered = true;
+            }
             const nx = (mouseX - rect.left) / rect.width - 0.5;
             const ny = (mouseY - rect.top) / rect.height - 0.5;
             const maxX = st.baseTravelMax * 1.15;
@@ -622,7 +629,10 @@
             st.targetX = st.cx + offsetX;
             st.targetY = st.cy + offsetY;
         } else {
-            if (st.cell) st.cell.classList.remove('touch-hover');
+            if (st.cell && st.isHovered) {
+                st.cell.classList.remove('touch-hover');
+                st.isHovered = false;
+            }
             const angle = Math.atan2(dy, dx);
             const dist = Math.hypot(dx, dy);
             const eyeRadiusScreen = Math.max(rect.width, rect.height) * 0.8;
