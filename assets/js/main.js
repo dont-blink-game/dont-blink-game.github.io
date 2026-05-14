@@ -724,4 +724,105 @@
     updateRects();
     requestAnimationFrame(tick);
     scheduleIdleTimer();
+
+
+    // --- Easter Egg Terminal Logic ---
+    const terminalBox = document.getElementById('easter-egg-terminal');
+    const termInput = document.getElementById('term-input');
+    const popup = document.getElementById('image-popup');
+    const popupImg = document.getElementById('popup-image');
+    const popupClose = document.getElementById('popup-close');
+    const popupHeader = document.getElementById('popup-header');
+    
+    if(termInput && terminalBox) {
+        termInput.addEventListener('input', () => {
+            terminalBox.classList.remove('error');
+        });
+
+        termInput.addEventListener('keydown', function(e) {
+            if(e.key === 'Enter') {
+                const code = termInput.value.trim();
+                terminalBox.classList.remove('error');
+                
+                if(code === '702754') {
+                    popupImg.src = 'assets/images/lore/Photo.webp';
+                    popup.classList.remove('hidden');
+                    termInput.value = '';
+                } else if(code !== '') {
+                    // Trigger reflow to restart animation
+                    void terminalBox.offsetWidth;
+                    terminalBox.classList.add('error');
+                    termInput.value = '';
+                    
+                    // Laat de terminal automatisch weer wit worden na de schud-animatie
+                    setTimeout(() => {
+                        terminalBox.classList.remove('error');
+                    }, 500);
+                }
+            }
+        });
+    }
+
+    if(popupClose) {
+        popupClose.addEventListener('click', () => {
+            popup.classList.add('hidden');
+        });
+    }
+
+    // Draggable Logic
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
+
+    if(popupHeader && popup) {
+        popupHeader.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        
+        popupHeader.addEventListener('touchstart', dragStart, {passive: false});
+        document.addEventListener('touchmove', drag, {passive: false});
+        document.addEventListener('touchend', dragEnd);
+    }
+
+    function dragStart(e) {
+        if(e.target === popupClose) return;
+        isDragging = true;
+        
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        
+        startX = clientX;
+        startY = clientY;
+        
+        const rect = popup.getBoundingClientRect();
+        
+        popup.style.left = rect.left + 'px';
+        popup.style.top = rect.top + 'px';
+        popup.style.transform = 'none';
+        
+        initialX = rect.left;
+        initialY = rect.top;
+        
+        if (e.type === 'touchstart') e.preventDefault();
+    }
+
+    function drag(e) {
+        if(!isDragging) return;
+        
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+        
+        popup.style.left = (initialX + dx) + 'px';
+        popup.style.top = (initialY + dy) + 'px';
+    }
+
+    function dragEnd() {
+        isDragging = false;
+    }
+
 })();
+
+
+

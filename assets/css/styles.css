@@ -566,7 +566,7 @@ body.page-body {
 
 .discord-art img {
     width: 40%;
-    opacity: 0.1;
+    opacity: 0.5;
     filter: brightness(0) invert(1);
 }
 
@@ -595,4 +595,159 @@ body.page-body {
     text-shadow: 0 2px 6px rgba(0,0,0,0.9);
     max-width: 600px;
     margin: 0 auto;
+}
+
+/* Easter Egg Terminal */
+#easter-egg-terminal {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid #333;
+    font-family: monospace;
+    color: #fff;
+    z-index: 1000;
+    opacity: 0.5;
+    transition: opacity 0.3s, border-color 0.3s, background 0.3s;
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+}
+
+#easter-egg-terminal:hover, #easter-egg-terminal:focus-within {
+    opacity: 1;
+    border-color: #fff;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.terminal-header {
+    background: #222;
+    padding: 3px 6px;
+    font-size: 11px;
+    color: #ccc;
+    user-select: none;
+    border-bottom: 1px solid #333;
+}
+
+.terminal-body {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.term-input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.term-input-line input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    font-family: monospace;
+    width: 100%;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* Draggable Popup */
+.draggable-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    max-width: 400px;
+    background: #000;
+    border: 2px solid #555;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+}
+
+.draggable-popup.hidden {
+    display: none;
+}
+
+.popup-header {
+    background: #222;
+    padding: 8px 12px;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #555;
+}
+
+.popup-title {
+    color: #eee;
+    font-family: monospace;
+    font-weight: bold;
+    user-select: none;
+}
+
+.popup-close {
+    background: transparent;
+    border: none;
+    color: #bbb;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+
+.popup-close:hover {
+    color: #fff;
+}
+
+.popup-body {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0d0d0d;
+}
+
+.popup-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+@keyframes terminal-shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+#easter-egg-terminal.error {
+    animation: terminal-shake 0.4s ease-in-out;
+    border-color: #f00 !important;
+}
+
+#easter-egg-terminal.error .terminal-body,
+#easter-egg-terminal.error .term-input-line input {
+    color: #f00 !important;
+}
+
+@media (max-width: 600px) {
+    #easter-egg-terminal {
+        width: calc(100% - 40px);
+        max-width: 300px;
+    }
+    
+    .term-input-line input {
+        font-size: 16px; /* Prevents auto-zoom on iOS */
+    }
+
+    .draggable-popup {
+        max-width: 90vw; /* Ensures it doesn't overflow mobile screens */
+    }
 }

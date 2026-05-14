@@ -236,5 +236,35 @@
     </footer>
 
     <script src="assets/js/main.js" defer></script>
+
+    <!-- Easter Egg Terminal -->
+    <div id="easter-egg-terminal">
+      <div class="terminal-header">
+        <div class="terminal-title">SYS_OVERRIDE</div>
+      </div>
+      <div class="terminal-body" id="term-body">
+        <div class="term-line">> Waiting for input...</div>
+        <div class="term-input-line">
+          <span class="prompt">></span
+          ><input
+            type="text"
+            id="term-input"
+            autocomplete="off"
+            maxlength="6"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Draggable Popup Container -->
+    <div id="image-popup" class="draggable-popup hidden">
+      <div class="popup-header" id="popup-header">
+        <span class="popup-title">LORE ENTRY</span>
+        <button id="popup-close" class="popup-close">&times;</button>
+      </div>
+      <div class="popup-body">
+        <img id="popup-image" src="" alt="Lore Image" />
+      </div>
+    </div>
   </body>
 </html>
