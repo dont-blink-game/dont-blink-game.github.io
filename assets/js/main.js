@@ -733,6 +733,7 @@
     const popupImg = document.getElementById('popup-image');
     const popupClose = document.getElementById('popup-close');
     const popupHeader = document.getElementById('popup-header');
+    const popupTitle = document.querySelector('.popup-title');
     
     if(termInput && terminalBox) {
         termInput.addEventListener('input', () => {
@@ -746,6 +747,22 @@
                 
                 if(code === '702754') {
                     popupImg.src = 'assets/images/lore/Photo.webp';
+                    if (popupTitle) popupTitle.textContent = '19/09/??.db';
+                    popup.classList.remove('hidden');
+                    termInput.value = '';
+                } else if(code === '271104') {
+                    popupImg.src = 'assets/images/lore/Folder.webp';
+                    if (popupTitle) popupTitle.textContent = 'FILE_271.db';
+                    popup.classList.remove('hidden');
+                    termInput.value = '';
+                } else if(code === '557380') {
+                    popupImg.src = 'assets/images/lore/Map.webp';
+                    if (popupTitle) popupTitle.textContent = 'SECTOR_MAP.db';
+                    popup.classList.remove('hidden');
+                    termInput.value = '';
+                } else if(code === '040303') {
+                    popupImg.src = 'assets/images/lore/CallLog.webp';
+                    if (popupTitle) popupTitle.textContent = 'CALL_LOG.db';
                     popup.classList.remove('hidden');
                     termInput.value = '';
                 } else if(code !== '') {
@@ -795,6 +812,7 @@
         
         const rect = popup.getBoundingClientRect();
         
+        popup.style.width = rect.width + 'px'; // Lock width so it doesn't shrink against walls
         popup.style.left = rect.left + 'px';
         popup.style.top = rect.top + 'px';
         popup.style.transform = 'none';
@@ -823,6 +841,8 @@
     }
 
 })();
+
+
 
 
 

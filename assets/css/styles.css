@@ -1,4 +1,11 @@
 @font-face {
+  font-family: 'Syne Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/SyneMono.woff2') format('woff2');
+}
+@font-face {
   font-family: 'Darumadrop One';
   font-style: normal;
   font-weight: 400;
@@ -250,8 +257,7 @@ body::before {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-    background: #000;
-}
+    }
 
 .trailer-video {
     width: 100%;
@@ -457,7 +463,6 @@ body.page-body {
 .site-footer {
     position: relative;
     z-index: 2;
-    background: #000;
     padding: 4rem 10vw 2rem;
     border-top: 1px solid rgba(255,255,255,0.1);
     font-size: 0.9rem;
@@ -518,8 +523,9 @@ body.page-body {
 }
 
 .social-icon {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
+    margin: -6px -2px;
     filter: invert(1);
     opacity: 0.8;
     transition: opacity 0.2s, transform 0.2s;
@@ -658,10 +664,8 @@ body.page-body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
+    width: max-content;
     max-width: 400px;
-    background: #000;
-    border: 2px solid #555;
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -673,18 +677,18 @@ body.page-body {
 }
 
 .popup-header {
-    background: #222;
+    background: #d4d4d4;
     padding: 8px 12px;
     cursor: move;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #555;
+    border-bottom: 2px solid #aaa;
 }
 
 .popup-title {
-    color: #eee;
-    font-family: monospace;
+    color: #000;
+    font-family: 'Syne Mono', monospace;
     font-weight: bold;
     user-select: none;
 }
@@ -692,15 +696,23 @@ body.page-body {
 .popup-close {
     background: transparent;
     border: none;
-    color: #bbb;
-    font-size: 24px;
     cursor: pointer;
-    line-height: 1;
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.popup-close:hover {
-    color: #fff;
+.popup-close img {
+    width: 36px;
+    height: 36px;
+    margin: -6px -2px;
+    object-fit: contain;
+    transition: transform 0.2s;
+}
+
+.popup-close:hover img {
+    transform: scale(1.1);
 }
 
 .popup-body {
@@ -708,8 +720,7 @@ body.page-body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0d0d0d;
-}
+    }
 
 .popup-body img {
     max-width: 100%;
@@ -751,3 +762,10 @@ body.page-body {
         max-width: 90vw; /* Ensures it doesn't overflow mobile screens */
     }
 }
+
+
+
+
+
+
+
