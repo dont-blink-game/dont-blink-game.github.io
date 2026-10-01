@@ -6,6 +6,13 @@
   src: url('../fonts/SyneMono.woff2') format('woff2');
 }
 @font-face {
+  font-family: 'Retrcade';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Retrcade.woff2') format('woff2');
+}
+@font-face {
   font-family: 'Darumadrop One';
   font-style: normal;
   font-weight: 400;
@@ -59,6 +66,12 @@ body::before {
     pointer-events: none;
     z-index: 9999;
     will-change: transform;
+}
+
+@media (min-width: 821px) {
+    body::before {
+        opacity: .08;
+    }
 }
 
 @keyframes grainShift {
