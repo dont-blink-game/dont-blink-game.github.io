@@ -130,7 +130,7 @@
                 ·
                 <a href="https://www.tiktok.com/@dont_blink_game" target="_blank" rel="noopener noreferrer">TikTok</a>
                 ·
-                <a href="https://www.youtube.com/@StudioScaleGames" target="_blank" rel="noopener noreferrer">YouTube</a>
+                <a href="https://www.youtube.com/@CollateralDamageGameStudio" target="_blank" rel="noopener noreferrer">YouTube</a>
               </dd>
             </div>
             <div>
@@ -393,7 +393,10 @@
 
     <dialog class="pk-lightbox" id="pk-lightbox" aria-label="Image preview">
       <button class="pk-lightbox-close" type="button" aria-label="Close">×</button>
+      <button class="pk-lightbox-nav pk-lightbox-prev" type="button" aria-label="Previous image">‹</button>
       <img alt="" />
+      <button class="pk-lightbox-nav pk-lightbox-next" type="button" aria-label="Next image">›</button>
+      <p class="pk-lightbox-count" aria-live="polite"></p>
     </dialog>
 
     <script>
@@ -401,17 +404,83 @@
         var box = document.getElementById("pk-lightbox");
         if (!box || typeof box.showModal !== "function") return;
         var img = box.querySelector("img");
+        var prevBtn = box.querySelector(".pk-lightbox-prev");
+        var nextBtn = box.querySelector(".pk-lightbox-next");
+        var count = box.querySelector(".pk-lightbox-count");
+        var items = [];
+        var index = 0;
+        var token = 0;
+
+        function show(i) {
+          index = (i + items.length) % items.length;
+          var link = items[index];
+          var thumb = link.querySelector("img");
+          var current = ++token;
+
+          var w = thumb.naturalWidth || thumb.getAttribute("width");
+          var h = thumb.naturalHeight || thumb.getAttribute("height");
+          if (w && h) box.style.setProperty("--pk-ratio", w / h);
+
+          // Show the already-loaded preview right away, then swap in the full image.
+          if (thumb.complete && thumb.naturalWidth) img.src = thumb.currentSrc || thumb.src;
+          else img.removeAttribute("src");
+          img.alt = thumb.alt;
+          var full = new Image();
+          full.onload = function () {
+            if (current === token) img.src = full.src;
+          };
+          full.src = link.href;
+
+          var multiple = items.length > 1;
+          prevBtn.hidden = nextBtn.hidden = count.hidden = !multiple;
+          count.textContent = index + 1 + " / " + items.length;
+
+          // Preload neighbours so stepping through feels instant.
+          if (multiple) {
+            new Image().src = items[(index + 1) % items.length].href;
+            new Image().src = items[(index - 1 + items.length) % items.length].href;
+          }
+        }
+
         document.querySelectorAll(".pk-shot").forEach(function (link) {
           link.addEventListener("click", function (e) {
             e.preventDefault();
-            var thumb = link.querySelector("img");
-            img.src = link.href;
-            img.alt = thumb.alt;
+            items = Array.prototype.slice.call(
+              link.closest(".pk-grid").querySelectorAll(".pk-shot")
+            );
+            show(items.indexOf(link));
             box.showModal();
           });
         });
+
+        prevBtn.addEventListener("click", function () { show(index - 1); });
+        nextBtn.addEventListener("click", function () { show(index + 1); });
+
+        box.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") { e.preventDefault(); show(index - 1); }
+          if (e.key === "ArrowRight") { e.preventDefault(); show(index + 1); }
+        });
+
         box.addEventListener("click", function (e) {
-          if (e.target !== img) box.close();
+          if (e.target === box || e.target.classList.contains("pk-lightbox-close")) box.close();
+        });
+
+        box.addEventListener("close", function () {
+          if (box.open) return;
+          token++;
+          img.removeAttribute("src");
+        });
+
+        // Swipe on touch screens.
+        var startX = null;
+        box.addEventListener("touchstart", function (e) {
+          startX = e.touches.length === 1 ? e.touches[0].clientX : null;
+        }, { passive: true });
+        box.addEventListener("touchend", function (e) {
+          if (startX === null || items.length < 2) return;
+          var dx = e.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+          startX = null;
         });
       })();
     </script>
